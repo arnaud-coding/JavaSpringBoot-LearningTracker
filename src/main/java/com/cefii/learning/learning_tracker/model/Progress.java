@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Entity
+@Table(name = "learning_tracker_progress")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

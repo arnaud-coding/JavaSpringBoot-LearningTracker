@@ -6,6 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
+@Table(name = "learning_tracker_user")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,7 +33,4 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Progress> progresses;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Content> markedAsSeenContents;
 }

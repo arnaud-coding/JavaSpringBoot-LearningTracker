@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Entity
+@Table(name = "learning_tracker_content")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,8 +33,4 @@ public class Content {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_course", nullable = false)
     private Course course;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
 }
