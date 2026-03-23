@@ -3,8 +3,6 @@ package com.cefii.learning.learning_tracker.service;
 import com.cefii.learning.learning_tracker.repository.ProgressRepository;
 import org.springframework.stereotype.Service;
 import com.cefii.learning.learning_tracker.model.Progress;
-import com.cefii.learning.learning_tracker.model.Course;
-import com.cefii.learning.learning_tracker.model.User;
 import java.util.List;
 // import org.springframework.beans.factory.annotation.Autowired; //* unnecessary since Spring 4.3 if the class has only one constructor
 
@@ -18,32 +16,32 @@ public class ProgressService {
         this.progressRepository = progressRepository;
     }
 
-    public Progress getProgressById(Long id_progress) {
-        return progressRepository.findById(id_progress).orElse(null);
-    }
-
-    public Progress getProgressByUserAndCourse(User user, Course course) {
-        return progressRepository.findByUserIdAndCourseId(user.getId_user(), course.getId_course());
-    }
-
     public List<Progress> getAllProgresses() {
         return progressRepository.findAll();
     }
 
-    public List<Progress> getProgressesByUser(User user) {
-        return progressRepository.findAllByUserId(user.getId_user());
+    public Progress getProgressById(Long id_progress) {
+        return progressRepository.findById(id_progress).orElse(null);
     }
 
-    public List<Progress> getProgressionsByCourse(Course course) {
-        return progressRepository.findAllByCourseId(course.getId_course());
+    public List<Progress> getProgressesByUser(Long user_id) {
+        return progressRepository.findAllByUserId(user_id);
     }
 
-    public Double getAverageProgressForCourse(Course course) {
-        return progressRepository.getAverageProgressForCourse(course.getId_course());
+    public List<Progress> getProgressionsByCourse(Long course_id) {
+        return progressRepository.findAllByCourseId(course_id);
     }
 
-    public Double getAverageProgressForUser(User user) {
-        return progressRepository.getAverageProgressForUser(user.getId_user());
+    public Progress getProgressByUserAndCourse(Long user_id, Long course_id) {
+        return progressRepository.findByUserIdAndCourseId(user_id, course_id);
+    }
+
+    public Double getAverageProgressForCourse(Long course_id) {
+        return progressRepository.getAverageProgressForCourse(course_id);
+    }
+
+    public Double getAverageProgressForUser(Long user_id) {
+        return progressRepository.getAverageProgressForUser(user_id);
     }
 
     // ----------------- Admin's operations -----------------

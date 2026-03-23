@@ -1,6 +1,7 @@
 package com.cefii.learning.learning_tracker.service;
 
 import com.cefii.learning.learning_tracker.repository.ContentRepository;
+import java.util.List;
 import org.springframework.stereotype.Service;
 import com.cefii.learning.learning_tracker.model.Content;
 import com.cefii.learning.learning_tracker.model.User;
@@ -13,6 +14,10 @@ public class ContentService {
     // Constructor-based dependency injection
     public ContentService(ContentRepository contentRepository) {
         this.contentRepository = contentRepository;
+    }
+
+    public List<Content> getAllContents() {
+        return contentRepository.findAll();
     }
 
     public Content getContentById(Long id_content) {
