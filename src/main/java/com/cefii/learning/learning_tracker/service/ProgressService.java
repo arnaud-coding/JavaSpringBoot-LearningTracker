@@ -24,24 +24,24 @@ public class ProgressService {
         return progressRepository.findById(id_progress).orElse(null);
     }
 
-    public List<Progress> getProgressesByUser(Long user_id) {
-        return progressRepository.findAllByUserId(user_id);
+    public List<Progress> getProgressesByUser(Long id_user) {
+        return progressRepository.findAllByUserId(id_user);
     }
 
-    public List<Progress> getProgressionsByCourse(Long course_id) {
-        return progressRepository.findAllByCourseId(course_id);
+    public List<Progress> getProgressionsByCourse(Long id_course) {
+        return progressRepository.findAllByCourseId(id_course);
     }
 
-    public Progress getProgressByUserAndCourse(Long user_id, Long course_id) {
-        return progressRepository.findByUserIdAndCourseId(user_id, course_id);
+    public Progress getProgressByUserAndCourse(Long id_user, Long id_course) {
+        return progressRepository.findByUserIdAndCourseId(id_user, id_course);
     }
 
-    public Double getAverageProgressForCourse(Long course_id) {
-        return progressRepository.getAverageProgressForCourse(course_id);
+    public Double getAverageProgressForCourse(Long id_course) {
+        return progressRepository.getAverageProgressForCourse(id_course);
     }
 
-    public Double getAverageProgressForUser(Long user_id) {
-        return progressRepository.getAverageProgressForUser(user_id);
+    public Double getAverageProgressForUser(Long id_user) {
+        return progressRepository.getAverageProgressForUser(id_user);
     }
 
     // ----------------- Admin's operations -----------------

@@ -33,12 +33,20 @@ public class ContentController {
         return ResponseEntity.ok(content);
     }
 
+    @GetMapping("/course/{id_course}")
+    public ResponseEntity<List<Content>> getAllContentsByCourseId(@PathVariable Long id_course) {
+        List<Content> contents = contentService.getAllContentsByCourseId(id_course);
+        if (contents.isEmpty())
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(contents);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Content> createContent(@RequestBody Content content) {
         Content createdContent = contentService.createContent(content);
         if (createdContent == null)
             return ResponseEntity.notFound().build();
-        return ResponseEntity.status(201).body(createdContent);
+        return ResponseEntity.ok(createdContent);
     }
 
     @PutMapping("/update/{id}")

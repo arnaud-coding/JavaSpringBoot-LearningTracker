@@ -32,40 +32,40 @@ public class ProgressController {
         return ResponseEntity.ok(progress);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Progress>> getProgressesByUser(@PathVariable Long user_Id) {
-        List<Progress> progresses = progressService.getProgressesByUser(user_Id);
+    @GetMapping("/user/{id_user}")
+    public ResponseEntity<List<Progress>> getProgressesByUser(@PathVariable Long id_user) {
+        List<Progress> progresses = progressService.getProgressesByUser(id_user);
         if (progresses.isEmpty())
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(progresses);
     }
 
-    @GetMapping("/course/{courseId}")
-    public ResponseEntity<List<Progress>> getProgressionsByCourse(@PathVariable Long course_Id) {
-        List<Progress> progresses = progressService.getProgressionsByCourse(course_Id);
+    @GetMapping("/course/{id_course}")
+    public ResponseEntity<List<Progress>> getProgressionsByCourse(@PathVariable Long id_course) {
+        List<Progress> progresses = progressService.getProgressionsByCourse(id_course);
         if (progresses.isEmpty())
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(progresses);
     }
 
-    @GetMapping("/user/{userId}/course/{courseId}")
-    public ResponseEntity<Progress> getProgressByUserAndCourse(@PathVariable Long user_Id,
-            @PathVariable Long course_Id) {
-        Progress progress = progressService.getProgressByUserAndCourse(user_Id, course_Id);
+    @GetMapping("/user/{id_user}/course/{id_course}")
+    public ResponseEntity<Progress> getProgressByUserAndCourse(@PathVariable Long id_user,
+            @PathVariable Long id_course) {
+        Progress progress = progressService.getProgressByUserAndCourse(id_user, id_course);
         if (progress == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(progress);
     }
 
-    @GetMapping("/course/{courseId}/average")
-    public ResponseEntity<Double> getAverageProgressForCourse(@PathVariable Long course_Id) {
-        Double average = progressService.getAverageProgressForCourse(course_Id);
+    @GetMapping("/course/{id_course}/average")
+    public ResponseEntity<Double> getAverageProgressForCourse(@PathVariable Long id_course) {
+        Double average = progressService.getAverageProgressForCourse(id_course);
         return ResponseEntity.ok(average);
     }
 
-    @GetMapping("/user/{userId}/average")
-    public ResponseEntity<Double> getAverageProgressForUser(@PathVariable Long user_Id) {
-        Double average = progressService.getAverageProgressForUser(user_Id);
+    @GetMapping("/user/{id_user}/average")
+    public ResponseEntity<Double> getAverageProgressForUser(@PathVariable Long id_user) {
+        Double average = progressService.getAverageProgressForUser(id_user);
         return ResponseEntity.ok(average);
     }
 

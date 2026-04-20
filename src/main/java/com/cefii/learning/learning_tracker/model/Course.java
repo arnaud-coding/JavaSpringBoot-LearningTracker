@@ -26,10 +26,10 @@ public class Course {
     @Column(nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "id_course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Content> contents;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "id_course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Progress> progressions;
 
 }

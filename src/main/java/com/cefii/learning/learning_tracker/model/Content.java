@@ -32,5 +32,5 @@ public class Content {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_course", nullable = false)
-    private Course course;
+    private Course id_course;
 }

@@ -23,9 +23,9 @@ public class Progress {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user", nullable = false)
-    private User user;
+    private User id_user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_course", nullable = false)
-    private Course course;
+    private Course id_course;
 }

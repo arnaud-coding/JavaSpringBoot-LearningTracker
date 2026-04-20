@@ -1,10 +1,10 @@
 package com.cefii.learning.learning_tracker.service;
 
 import com.cefii.learning.learning_tracker.repository.ContentRepository;
-import java.util.List;
 import org.springframework.stereotype.Service;
 import com.cefii.learning.learning_tracker.model.Content;
 import com.cefii.learning.learning_tracker.model.User;
+import java.util.List;
 // import org.springframework.beans.factory.annotation.Autowired;  //* unnecessary since Spring 4.3 if the class has only one constructor
 
 @Service
@@ -22,6 +22,10 @@ public class ContentService {
 
     public Content getContentById(Long id_content) {
         return contentRepository.findById(id_content).orElse(null);
+    }
+
+    public List<Content> getAllContentsByCourseId(Long id_course) {
+        return contentRepository.findAllByCourseId(id_course);
     }
 
     // ----------------- Admin's operations -----------------
