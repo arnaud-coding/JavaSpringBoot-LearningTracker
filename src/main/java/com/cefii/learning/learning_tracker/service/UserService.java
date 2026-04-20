@@ -2,17 +2,21 @@ package com.cefii.learning.learning_tracker.service;
 
 import com.cefii.learning.learning_tracker.repository.UserRepository;
 import com.cefii.learning.learning_tracker.model.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
-// import org.springframework.beans.factory.annotation.Autowired; //* unnecessary since Spring 4.3 if the class has only one constructor
+// import org.springframework.beans.factory.annotation.Autowired; //* unnecessary here since Spring 4.3 if there is only one controller
 
-@Service
+@Service // Indicates that this a service handled by Spring
 public class UserService {
-    private final UserRepository userRepository;
+    private final UserRepository userRepository; // Dependancy to the user's repository
+    private PasswordEncoder passwordEncoder; // Dependancy to the password encoder
 
+    // @Autowired
     // Constructor-based dependency injection
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User getUserById(Long id_user) {
@@ -36,9 +40,11 @@ public class UserService {
         if (allUsernames.contains(user.getUsername()))
             return null; // Or throw an exception
 
-        // Todo: add password hashing
+        User newUser = new User();
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.save(user);
+        return userRepository.save(newUser);
     }
 
     // -----------------
@@ -53,9 +59,8 @@ public class UserService {
         if (allUsernames.contains(user.getUsername()))
             return null; // Or throw an exception
 
-        // Todo: add password hashing
         existingUser.setUsername(user.getUsername());
-        existingUser.setPassword(user.getPassword());
+        existingUser.setPassword(passwordEncoder.encode(user.getPassword())); // Hash the password before saving it
 
         return userRepository.save(existingUser);
     }
