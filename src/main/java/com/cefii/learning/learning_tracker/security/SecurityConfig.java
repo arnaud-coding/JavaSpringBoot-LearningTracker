@@ -10,23 +10,28 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
+// import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration // Tells to Spring that this is a config class
 @EnableWebSecurity // Activates Spring's web security configuration
 public class SecurityConfig {
 
-    @Autowired
-    private JwtAuthFilter jwtAuthFilter; // Injects our JWT filter
-    @Autowired
-    private CustomUserDetailsService userDetailsService; // Injects our user's details' service
+    private final JwtAuthFilter jwtAuthFilter;
+    private final CustomUserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, CustomUserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean // Creates a bean for the secutity filter chain
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -46,19 +51,11 @@ public class SecurityConfig {
         return config.getAuthenticationManager(); // Gets the default authentication manager
     }
 
-    @Bean // Creates a Bean for the password encoder
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Use Bcrypt to hash passwords
-
-        // Code to verify the password (additional help ; do not implement here but in service or controller packages instead):
-        // boolean isMatch = passwordEncoder.matches(rawPasswordFromLogin, encodedPasswordFromDb);
-    }
-
     @Bean // Create a bean for the authentication provider
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService); // Associates our UserDetailsService
 
-        authProvider.setPasswordEncoder(passwordEncoder()); // Associates our PasswordEncoder
+        authProvider.setPasswordEncoder(passwordEncoder); // Associates our PasswordEncoder
         return authProvider;
     }
 }

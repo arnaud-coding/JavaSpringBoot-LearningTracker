@@ -10,7 +10,7 @@ import java.util.List;
 @Service // Indicates that this a service handled by Spring
 public class UserService {
     private final UserRepository userRepository; // Dependancy to the user's repository
-    private PasswordEncoder passwordEncoder; // Dependancy to the password encoder
+    private final PasswordEncoder passwordEncoder; // Dependancy to the password encoder
 
     // @Autowired
     // Constructor-based dependency injection
@@ -43,6 +43,7 @@ public class UserService {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        newUser.setRole(user.getRole());
 
         return userRepository.save(newUser);
     }
