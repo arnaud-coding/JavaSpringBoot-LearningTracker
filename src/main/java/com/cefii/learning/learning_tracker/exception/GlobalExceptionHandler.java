@@ -140,4 +140,26 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * HANDLER 6: Rate Limit Exceeded (429)
+     * Triggered when: A user exceeds the allowed number of requests in a given time frame (100 per minute in our case)
+     */
+    @ExceptionHandler(RateLimitExceededException.class)
+    public ResponseEntity<ErrorResponse> handleRateLimitExceededException(
+            RateLimitExceededException ex, WebRequest request) {
+
+        log.warn("Rate limit exceeded: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.TOO_MANY_REQUESTS.value()) // 429
+                .error("RATE_LIMIT_EXCEEDED")
+                .message(ex.getMessage())
+                .path(request.getDescription(false).replace("uri=", ""))
+                .details(null)
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.TOO_MANY_REQUESTS);
+    }
+
 }
